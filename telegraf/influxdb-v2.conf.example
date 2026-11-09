@@ -1,0 +1,8 @@
+# Template: replace the endpoint, organization and bucket. Enable TLS and
+# supply INFLUX_TOKEN through a root-only systemd EnvironmentFile.
+[[outputs.influxdb_v2]]
+  urls = ["https://influx.example.org:8086"]
+  token = "${INFLUX_TOKEN}"
+  organization = "your-organization"
+  bucket = "oasis-metrics"
+  insecure_skip_verify = false

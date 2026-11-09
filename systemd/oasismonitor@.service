@@ -1,0 +1,17 @@
+[Unit]
+Description=Collect Oasis metrics for %i
+
+[Service]
+Type=oneshot
+# Change User to the account that owns the node socket, if different.
+User=oasis
+EnvironmentFile=/etc/oasismonitor/%i.env
+RuntimeDirectory=oasismonitor-%i
+RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
+ExecStart=/usr/local/libexec/oasismonitor/metrics-collector.sh --output /run/oasismonitor-%i/metrics.lp
+TimeoutStartSec=35s
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
