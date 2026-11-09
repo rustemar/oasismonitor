@@ -1,4 +1,14 @@
 # Oasis simple monitor
+
+> [!WARNING]
+> **Legacy project:** these instructions date from 2021–2022 and have not been
+> verified on current Oasis Network or Telegraf releases. The original setup
+> granted Telegraf unrestricted passwordless root access; those commands have
+> been removed. The configuration below still requires manual adaptation,
+> including appropriate least-privilege access to the node socket and secure
+> InfluxDB credentials and transport. Do not use it as a production install
+> guide without reviewing and testing it for your environment.
+
 This solution is designed to monitor metrics of Cipher ParaTime nodes and Mainnet Validator nodes in the Oasis Network. It uses one file [metrics-collector.sh](https://github.com/hukutu4/oasismonitor/blob/main/metrics-collector.sh) to collect metrics from the node via Telegraf and send it every 30 seconds to your server, where installed Grafana and InfluxDB, and where you can see the metrics of your node by the public key named Entity ID.
 
 - If you only need JSON dashboard model - it is available here [oasis-community-dashboard.json](https://github.com/hukutu4/oasismonitor/blob/main/oasis-community-dashboard.json).
@@ -51,10 +61,8 @@ sudo cat > /etc/telegraf/telegraf.conf <<EOF
   data_type = "integer"
 EOF
 
-# make the telegraf user sudo and adm to be able to execute scripts
-sudo adduser telegraf sudo
-sudo adduser telegraf adm
-sudo -- bash -c 'echo "telegraf ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+# The original broad sudo permissions have been removed. The command above
+# must be adapted to run the collector with only the access it needs.
 ```
 ## Clone this repo and start telegraf
 ```bash
